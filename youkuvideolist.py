@@ -1,6 +1,12 @@
 import requests
 import json
 from pprint import pprint
+import xlwt
+
+file_times = open("youku_video_times.txt","wb")
+file_video = open("youku_video_list.txt","wb")
+xls_data = xlwt.Workbook()
+xls_table=xls_data.add_sheet('videos',cell_overwrite_ok=True)
 
 
 def run():
@@ -9,22 +15,13 @@ def run():
     # url = 'http://oagwezixg.bkt.clouddn.com/youku_test.json'
     url = 'https://api.youku.com/videos/by_me.json'
 
-    # replace your private parameter below
-    payloads = {'client_id':'99******ad*b','access_token':'62*****70**36****5c9ff'}
-    youku_json_get = requests.get(url,params=payloads).json()
+    # replace your private parameter below(client_id / access_token / video_page)
+    payloads = {'client_id':'999*******d**0b','access_token':'62****01e363*****dc905c9ff','count':50,'page':1}
+    video_page = 2
 
-    # set the JSON data
-    youku_json = json.dumps(youku_json_get)
-    youku_text = json.loads(youku_json)
-
-    # init the parameter for analysis and output
-    video_num = len(youku_text['videos']) - 1  # return the length of dict -- nums of videos
+    # get the JSON data and set to list
     video_list = []
-    file_times = open("youku_video_times.txt","wb")
-    file_video = open("youku_video_list.txt","wb")
-
-    # get the video list
-    add_video_list(video_list,youku_text,video_num)
+    trans_json(video_page,video_list,url,payloads)
 
     # analyze the video times and output to .txt
     video_set = set(video_list)
@@ -44,10 +41,40 @@ def run():
     # close the file
     file_times.close()
     file_video.close()
+    xls_data.save("youku_video_data.xls")
     print("Get the video list succeed! \nCheck the two txt files for details")
 
-def add_video_list(video_list,list_text,num):
-    for i in range(num):
-        video_list.append(list_text['videos'][i]['title'])
 
+def export_video_list(video_list,youku_text,num,xls_line):
+    #this function list the video to video_list and export details to .xls
+    for i in range(num):
+        video_list.append(youku_text['videos'][i]['title'])
+        xls_table.write(xls_line, 0, youku_text['videos'][i]['id'])
+        xls_table.write(xls_line, 1, youku_text['videos'][i]['title'])
+        xls_table.write(xls_line, 2, youku_text['videos'][i]['view_count'])
+        xls_table.write(xls_line, 3, youku_text['videos'][i]['link'])
+        xls_line += 1
+
+
+def trans_json(video_page,video_list,url,payloads):
+    #this fuction get the all json files and deal with the data
+    xls_line = 1
+    for i in range(1,video_page+1):
+        youku_json_get = requests.get(url, params=payloads).json()
+        youku_json = json.dumps(youku_json_get)
+        youku_text = json.loads(youku_json)
+        video_num = len(youku_text['videos']) - 1
+        export_video_list(video_list, youku_text, video_num,xls_line)
+        payloads['page'] = i+1
+
+
+def init_xls():
+    xls_table.write(0,0,"id")
+    xls_table.write(0,1,"title")
+    xls_table.write(0,2,"view_count")
+    xls_table.write(0,3,"link")
+
+
+
+init_xls()
 run()
