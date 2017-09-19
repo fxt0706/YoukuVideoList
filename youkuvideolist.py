@@ -17,7 +17,7 @@ def run():
     url = 'https://api.youku.com/videos/by_me.json'
 
     # replace your private parameter below(client_id / access_token / video_page)
-    payloads = {'client_id':'99989ad8221add0b','access_token':'6253aae7227f8701e36367bdc905c9ff','count':50,'page':1}
+    payloads = {'client_id':'99989a******dd0b','access_token':'6253aa*******7bdc905c9ff','count':50,'page':1}
     video_page = 2
 
     # get the JSON data and set to list
