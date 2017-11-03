@@ -6,7 +6,7 @@
 
 1. 申请了优酷视频开发者API
 2. Python3 环境
-3. 已安装 requests 库，若没有安装，执行 pip3 install requests
+3. 已安装 request 库，若没有安装，执行 pip3 install request
 
 ## 使用方法
 
