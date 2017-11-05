@@ -6,11 +6,11 @@
 
 1. 申请了优酷视频开发者API
 2. Python3 环境
-3. 已安装 request 库，若没有安装，执行 pip3 install request
+3. 已安装 `requests` 库，若没有安装，执行 `pip3 install requests`
 
 ## 使用方法
 
-根据自己的情况修改脚本中的参数，并执行。
+填写 `config.py` 文件，修改 `youkuvideolist.py` 文件并执行。
 
 执行完毕后会生成2个.txt文件以及1个.xls文件:
 
