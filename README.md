@@ -26,7 +26,7 @@ youku_video_data.xls ： 所有的视频详细数据
 
 在 Google Drive 中新建一个你需要导出的 Google Sheet 文件，范本如[这个文件](https://docs.google.com/spreadsheets/d/1-VX0obPVuCweJPkbTHqOe1c67fuEGf1qwBz4E9BwNn4/edit?usp=sharing)
 
-填写 `config.py` 文件，其中 Google Sheet 文件的 ID 可在打开的网址中获取
+填写 `config.py` 文件，其中 `LIST_WKS_ID` 为 Google Sheet 文件的 ID ，可在打开的网址中获取
 
 修改 `youlistonline.py` 文件中的时间参数，并执行 `python3 youlistonline.py`
 
