@@ -3,6 +3,7 @@ import YouCore
 import xlwt
 import config
 import time
+from googleapiclient.discovery import build
 
 file_times = open("./list/youku_video_times.txt","wb")
 file_video = open("./list/youku_video_list.txt","wb")
@@ -94,9 +95,11 @@ class YouList():
         time_video_struct = time.strptime(time_video, "%Y-%m-%d %H:%M:%S")
         return time_std_struct > time_video_struct
 
+
+
 if __name__ == '__main__':
 
-    YouList()
+    YouList('2017-8-1')
 
     # if you need set the time use below
     # YouList('2017-10-1')
